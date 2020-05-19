@@ -21,20 +21,22 @@ app.get("/notes", function (req, res) {
 app.get("/*", function (req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
 });
+
 // creates a get on the dp.json file
 app.get("api/notes", function (req, res) {
-  fs.readFile("./db/dbjson", "utf8", function (data){
-  return res.json(data)
+  fs.readFile("./db/db.json", "utf8", function (res){
+  return res.json(res)
   })
 });
 
 app.post("/api/notes", function(req, res) {
-    fs.appendFile("./db/db.json", JSON.stringify(req.body, null, 2), function (err) {
+    fs.appendFile("./db/db.json", JSON.stringify(req.body), function (err) {
         if (err) {
             console.log(err)
         }
     })
   });
+
 
 // Starts the server to begin listening
 // =============================================================
