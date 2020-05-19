@@ -1,5 +1,7 @@
 var express = require("express");
 var path = require("path");
+var fs = require("fs")
+// var db = require("./db/db.json")
 
 var app = express();
 // lets the port equal whatever heroku chooses for it. 
@@ -19,6 +21,20 @@ app.get("/notes", function (req, res) {
 app.get("/*", function (req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
 });
+// creates a get on the dp.json file
+app.get("api/notes", function (req, res) {
+  fs.readFile("./db/dbjson", "utf8", function (data){
+  return res.json(data)
+  })
+});
+
+app.post("/api/notes", function(req, res) {
+    fs.appendFile("./db/db.json", JSON.stringify(req.body, null, 2), function (err) {
+        if (err) {
+            console.log(err)
+        }
+    })
+  });
 
 // Starts the server to begin listening
 // =============================================================
