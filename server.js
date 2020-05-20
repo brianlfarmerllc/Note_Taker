@@ -18,10 +18,14 @@ app.get("/api/notes", function (req, res) {
     return res.json(db);
 });
 
-app.post("/api/notes", function(req, res) {
+app.post("/api/notes", function (req, res) {
     let dbList = db;
-    console.log(dbList)
-    let newNote = req.body
+    let newId = dbList.length
+    let newNote = {
+        id: newId + 1,
+        title: req.body.title,
+        text: req.body.text
+    }
     dbList.push(newNote)
 
     fs.writeFileSync("./db/db.json", JSON.stringify(dbList, null, 2), function (err) {
@@ -29,7 +33,7 @@ app.post("/api/notes", function(req, res) {
             console.log(err)
         }
     })
-  });
+})
 
 // creates path for notes and default path
 app.get("/notes", function (req, res) {
