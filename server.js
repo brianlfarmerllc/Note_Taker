@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs")
 const db = require("./db/db.json")
+const uuid = require('uuid');
+
 
 const app = express();
 // lets the port equal whatever heroku chooses for it. 
@@ -20,9 +22,9 @@ app.get("/api/notes", function (req, res) {
 
 app.post("/api/notes", function (req, res) {
     let dbList = db;
-    let newId = dbList.length
+    // let newId = dbList.length
     let newNote = {
-        id: newId + 1,
+        id: uuid.v1(),
         title: req.body.title,
         text: req.body.text
     }
@@ -32,6 +34,7 @@ app.post("/api/notes", function (req, res) {
         if (err) {
             console.log(err)
         }
+       res.json(newNote)
     })
 })
 
