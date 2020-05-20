@@ -4,10 +4,9 @@ const fs = require("fs")
 const db = require("./db/db.json")
 const uuid = require('uuid');
 
-
 const app = express();
 // lets the port equal whatever heroku chooses for it. 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -22,25 +21,26 @@ app.get("/api/notes", function (req, res) {
 
 app.post("/api/notes", function (req, res) {
     let dbList = db;
-    // let newId = dbList.length
     let newNote = {
         id: uuid.v1(),
         title: req.body.title,
         text: req.body.text
     }
-    dbList.push(newNote)
+    dbList.push(newNote);
 
-    fs.writeFileSync("./db/db.json", JSON.stringify(dbList, null, 2), function (err) {
+    fs.writeFile("./db/db.json", JSON.stringify(dbList, null, 2), function (err) {
         if (err) {
             console.log(err)
         }
-       res.json(newNote)
+        res.json(newNote)
     })
 })
 
 app.delete("/api/notes/:id", function (req, res) {
-    let deleteId = req.params.id
-   console.log(deleteId)
+    let deleteId = req.params.id;
+    let dbList = db.filter(item => item !== deleteId)
+    console.log(dbList)
+
 })
 
 // creates path for notes and default path
