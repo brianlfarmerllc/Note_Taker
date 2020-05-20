@@ -38,8 +38,14 @@ app.post("/api/notes", function (req, res) {
 
 app.delete("/api/notes/:id", function (req, res) {
     let deleteId = req.params.id;
-    let dbList = db.filter(item => item !== deleteId)
-    console.log(dbList)
+    let dbList = db.filter(item => item.id !== deleteId)
+    
+    fs.writeFile("./db/db.json", JSON.stringify(dbList, null, 2), function (err) {
+        if (err) {
+            console.log(err)
+        }
+        res.json(newNote)
+    })
 
 })
 
