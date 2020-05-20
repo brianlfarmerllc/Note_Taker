@@ -35,6 +35,11 @@ app.post("/api/notes", function (req, res) {
     })
 })
 
+app.delete("/api/notes/:id", function (req, res) {
+    let deleteId = req.params.id
+   console.log(deleteId)
+})
+
 // creates path for notes and default path
 app.get("/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "public/notes.html"));

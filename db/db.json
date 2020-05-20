@@ -1,7 +1,12 @@
 [
   {
     "id": 1,
-    "title": "asdfasdf",
-    "text": "asdfasdfasdf"
+    "title": "I want to delete this note",
+    "text": "ffff"
+  },
+  {
+    "id": 2,
+    "title": "I want to keep this note",
+    "text": "ffffff"
   }
 ]
